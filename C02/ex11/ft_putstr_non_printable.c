@@ -1,19 +1,29 @@
+void ft_putchar(char c)
+{
+	write(1, &c, 1);
+}
+
 void ft_putstr_non_printable(char *str)
 {
-    int counter;
+	int i;
+	unsigned char c;
+	char *hex;
 
-    counter = 0;
-    while (str[counter] != '\0')
-    {
-        if (str[counter] < 32 || str[counter] > 126)
-        {
-            write(1, "\\", 1);
-            if (str[counter] < 16)
-                write(1, "0", 1);
-            ft_putnbr_base(str[counter], "0123456789abcdef");
-        }
-        else
-            write(1, &str[counter], 1);
-        counter++;
-    }
+	hex = "0123456789abcdef";
+	i = 0;
+	while (str[i] != '\0')
+	{
+		c = (unsigned char)str[i];
+		if (c < 32 || c > 126)
+		{
+			ft_putchar('\\');
+			ft_putchar(hex[c / 16]);
+			ft_putchar(hex[c % 16]);
+		}
+		else
+		{
+			ft_putchar(c);
+		}
+		i++;
+	}
 }
